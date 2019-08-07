@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { addExperience } from "../../Redux/Actions/profile";
 import { Link, withRouter } from "react-router-dom";
 
-const AddEducation = props => {
+const AddExperience = ({ addExperience, history }) => {
   const [formData, setFormData] = useState({
     company: "",
     title: "",
@@ -20,6 +20,8 @@ const AddEducation = props => {
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  
   return (
     <Fragment>
       <h1 className="large text-primary">Add An Experience</h1>
@@ -28,7 +30,13 @@ const AddEducation = props => {
         positions that you have had in the past
       </p>
       <small>* = required field</small>
-      <form className="form">
+      <form
+        className="form"
+        onSubmit={e => {
+          e.preventDefault();
+          addExperience(formData, history);
+        }}
+      >
         <div className="form-group">
           <input
             type="text"
@@ -40,23 +48,57 @@ const AddEducation = props => {
           />
         </div>
         <div className="form-group">
-          <input type="text" placeholder="* Company" name="company" required value = {company} onChange = {e => onChange(e)} />
+          <input
+            type="text"
+            placeholder="* Company"
+            name="company"
+            required
+            value={company}
+            onChange={e => onChange(e)}
+          />
         </div>
         <div className="form-group">
-          <input type="text" placeholder="Location" name="location" value = {location} onChange = {e => onChange(e)} />
+          <input
+            type="text"
+            placeholder="Location"
+            name="location"
+            value={location}
+            onChange={e => onChange(e)}
+          />
         </div>
         <div className="form-group">
           <h4>From Date</h4>
-          <input type="date" name="from" value = {from} onChange = {e => onChange(e)} />
+          <input
+            type="date"
+            name="from"
+            value={from}
+            onChange={e => onChange(e)}
+          />
         </div>
         <div className="form-group">
           <p>
-            <input type="checkbox" name="current" value="" /> Current Job
+            <input
+              type="checkbox"
+              name="current"
+              value={current}
+              checked={current}
+              onChange={e => {
+                setFormData({ ...formData, current: !current });
+                toggleDisabled(!toDateDisabled);
+              }}
+            />{" "}
+            Current Job
           </p>
         </div>
         <div className="form-group">
           <h4>To Date</h4>
-          <input type="date" name="to" />
+          <input
+            type="date"
+            name="to"
+            value={to}
+            onChange={e => onChange(e)}
+            disabled={toDateDisabled ? "disabled" : ""}
+          />
         </div>
         <div className="form-group">
           <textarea
@@ -64,6 +106,8 @@ const AddEducation = props => {
             cols="30"
             rows="5"
             placeholder="Job Description"
+            value={description}
+            onChange={e => onChange(e)}
           />
         </div>
         <input type="submit" className="btn btn-primary my-1" />
@@ -75,11 +119,11 @@ const AddEducation = props => {
   );
 };
 
-AddEducation.propTypes = {
+AddExperience.propTypes = {
   addExperience: PropTypes.func.isRequired
 };
 
 export default connect(
   null,
   { addExperience }
-)(AddEducation);
+)(withRouter(AddExperience));
