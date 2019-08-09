@@ -1,6 +1,7 @@
 {
-    "mongoURI": "mongodb+srv://mudassar123:mudassar755@socialnetwork-jzffh.mongodb.net/test?retryWrites=true&w=majority",
+    "mongoURI": "mongodb+srv://mudassar123:mudassar755@socialnetwork-jzffh.mongodb.net/devConnector?retryWrites=true&w=majority",
     "JwtSecret": "secretToken",
     "githubClientId": "a776e176be33b3b32f4b",
     "githubSecret": "9325a831161ee371cc27f77dea9853a8de8865bb"
-}
+  }
+  

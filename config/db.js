@@ -20,3 +20,7 @@ const connectDB = async () => {
 }
 
 module.exports = connectDB;
+
+// "mongoURI": "mongodb+srv://mudassar123:mudassar755@socialnetwork-jzffh.mongodb.net/test?retryWrites=true&w=majority",
+
+// "mongoURI": "mongodb://localhost:27017/devConnector",
