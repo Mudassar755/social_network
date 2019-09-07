@@ -1,6 +1,7 @@
 const express = require("express");
 const request = require("request");
 const config = require("config");
+const multer = require("multer");
 const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 const Profile = require("../../models/Profile");
@@ -36,8 +37,20 @@ router.get("/me", auth, async (req, res) => {
 //@desc    Create or update user profile
 //@access  Private
 
+const storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null,'./uploads')
+  },
+  filename: function(req, file, cb){
+    cb(null, file.originalname)
+  }
+});
+
+var upload = multer({ storage: storage}).single('file');
+
 router.post(
   "/",
+  upload,
   [
     auth,
     [
@@ -47,7 +60,8 @@ router.post(
       check("skills", "Skills are required")
         .not()
         .isEmpty()
-    ]
+    ],
+
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -70,6 +84,10 @@ router.post(
       linkedin
     } = req.body;
 
+    const file = req.file;
+    console.log(file.originalname);
+    // const file = profileImg.originalname;
+
     //Build Profile Object
     const profileFields = {};
     profileFields.user = req.user.id;
@@ -79,11 +97,12 @@ router.post(
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
     if (githubusername) profileFields.githubusername = githubusername;
+    if (file) profileFields.file = file.originalname;
     if (skills) {
       profileFields.skills = skills.split(",").map(skill => skill.trim());
     }
-
-    console.log(profileFields.skills);
+    
+    // console.log(profileFields.file);
 
     //Build social object
     profileFields.social = {};

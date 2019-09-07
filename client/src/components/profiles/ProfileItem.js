@@ -8,12 +8,13 @@ const ProfileItem = ({
     status,
     company,
     location,
-    skills
+    skills,
+    file
   }
 }) => {
   return (
     <div className="profile bg-light">
-      <img src={avatar} className="round-omg" alt="" />
+      <img src={file ? file : avatar} className="round-omg" alt="" />
       <div>
         <h2>{name}</h2>
         <p>

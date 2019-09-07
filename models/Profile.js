@@ -22,6 +22,9 @@ const ProfileSchema = mongoose.Schema({
         type: [String],
         required: true
     },
+    file: {
+        type: String
+    },
     bio:{
         type: String
     },

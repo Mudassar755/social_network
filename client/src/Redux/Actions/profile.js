@@ -90,6 +90,7 @@ export const createProfile = (
     const config = {
       headers: {
         "Content-Type": "application/json"
+        // "Content-Type": "multipart/form-data"
       }
     };
     const res = await axios.post("/api/profile", formData, config);

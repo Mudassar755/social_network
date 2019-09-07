@@ -32,6 +32,8 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
 export const UPDATE_LIKES = 'UPDATE_LIKES';
+export const UPDATE_UNLIKES = 'UPDATE_UNLIKES';
+
 
 
 

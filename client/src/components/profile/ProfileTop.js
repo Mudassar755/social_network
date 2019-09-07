@@ -3,17 +3,20 @@ import PropTypes from "prop-types";
 
 const ProfileTop = ({
   profile: {
+    user: { name, avatar },
     status,
     company,
     location,
     website,
     social,
-    user: { name, avatar }
+    file,
   }
 }) => {
   return (
     <div className="profile-top bg-primary p-2">
-      <img className="round-img my-1" src={avatar} alt="" />
+      {/* <input type = 'file' name='profileImg' className = 'profile-img' /> */}
+      <img src={!file ? avatar : `http://localhost:5000/${file}`} className="round-img my-1" alt="" />
+
       <h1 className="large">{name}</h1>
       <p className="lead">
         {status} {company && <span> at {company}</span>}

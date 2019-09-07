@@ -16,6 +16,7 @@ const EditProfile = ({
     location: "",
     status: "",
     skills: "",
+    selectedFile: "",
     githubusername: "",
     bio: "",
     twitter: "",
@@ -28,23 +29,24 @@ const EditProfile = ({
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
   useEffect(() => {
-      getCurrentProfile();
-      setFormData({
-          company: loading || !profile.company ? '' : profile.company,
-          website: website || !profile.website ? '' : profile.website,
-          location: loading || !profile.location ? '' : profile.location,
-          status: loading || !profile.status ? '' : profile.status,
-          skills: loading || !profile.skills ? '' : profile.skills.join(','),
-          githubusername: loading || !profile.githubusername ? '' : profile.githubusername,
-          bio: loading || !profile.bio ? '' : profile.bio,
-          twitter: loading || !profile.social ? '' : profile.twitter,
-          facebook: loading || !profile.social ? '' : profile.facebook,
-          linkedin: loading || !profile.social ? '' : profile.linkedin,
-          youtube: loading || !profile.social ? '' : profile.youtube,
-          instagram: loading || !profile.social ? '' : profile.instagram,
-
-      });
-  }, [loading, getCurrentProfile])
+    getCurrentProfile();
+    setFormData({
+      company: loading || !profile.company ? "" : profile.company,
+      website: loading || !profile.website ? "" : profile.website,
+      location: loading || !profile.location ? "" : profile.location,
+      status: loading || !profile.status ? "" : profile.status,
+      skills: loading || !profile.skills ? "" : profile.skills.join(","),
+      githubusername:
+        loading || !profile.githubusername ? "" : profile.githubusername,
+      bio: loading || !profile.bio ? "" : profile.bio,
+      selectedFile: loading || !profile.selectedFile ? "" : profile.selectedFile,
+      twitter: loading || !profile.social ? "" : profile.twitter,
+      facebook: loading || !profile.social ? "" : profile.facebook,
+      linkedin: loading || !profile.social ? "" : profile.linkedin,
+      youtube: loading || !profile.social ? "" : profile.youtube,
+      instagram: loading || !profile.social ? "" : profile.instagram
+    });
+  }, [loading, getCurrentProfile]);
 
   const {
     company,
@@ -52,6 +54,7 @@ const EditProfile = ({
     location,
     status,
     skills,
+    selectedFile,
     githubusername,
     bio,
     twitter,
@@ -61,9 +64,15 @@ const EditProfile = ({
     instagram
   } = formData;
 
-  const onChange = e =>
+  const onChange = e =>{
     setFormData({ ...formData, [e.target.name]: e.target.value });
-
+    console.log(formData);
+  };
+  const onChangeFile = e => {
+  
+    setFormData({ ...formData, selectedFile: e.target.files });
+    console.log(formData);
+  };
   const onSubmit = e => {
     e.preventDefault();
     createProfile(formData, history, true);
@@ -140,6 +149,15 @@ const EditProfile = ({
           <small className="form-text">
             Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
           </small>
+        </div>
+        <div className="form-group">
+          <input
+            type="file"
+            name="file"
+            // value={selectedFile}
+            onChange={e => onChangeFile(e)}
+          />
+          <small className="form-text">Please add jpg, jpeg or png file</small>
         </div>
         <div className="form-group">
           <input
@@ -234,7 +252,7 @@ const EditProfile = ({
         )}
 
         <input type="submit" className="btn btn-primary my-1" />
-        <Link to="/dashboard" className="btn btn-light my-1" >
+        <Link to="/dashboard" className="btn btn-light my-1">
           Go Back
         </Link>
       </form>

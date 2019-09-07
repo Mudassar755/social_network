@@ -5,12 +5,13 @@ import { createProfile } from '../../Redux/Actions/profile';
 import { Link, withRouter } from 'react-router-dom'
 
 const CreateProfile = ({ createProfile, history }) => {
-  const [formData, setFormDate] = useState({
+  const [formData, setFormData] = useState({
     company: "",
     website: "",
     location: "",
     status: "",
     skills: "",
+    selectedFile: "",
     githubusername: "",
     bio: "",
     twitter: "",
@@ -28,6 +29,7 @@ const CreateProfile = ({ createProfile, history }) => {
     location,
     status,
     skills,
+    selectedFile,
     githubusername,
     bio,
     twitter,
@@ -37,13 +39,40 @@ const CreateProfile = ({ createProfile, history }) => {
     instagram
   } = formData;
 
-  const onChange = e =>
-    setFormDate({ ...formData, [e.target.name]: e.target.value });
+  const onChange = e =>{
+
+    setFormData({ ...formData, [e.target.name]: e.target.value});
+    console.log(formData)
+    
+  }
+  const onChangeFile = e =>{
+
+    setFormData({...formData, selectedFile: e.target.files[0]});
+    console.log(e.target.files[0])
+    console.log(formData)
+  }
+    
 
     const onSubmit = e => {
         e.preventDefault();
-        createProfile(formData, history)
+        const data = new FormData();
+        data.append('company', company);
+        data.append('website', website);
+        data.append('location', location);
+        data.append('status', status);
+        data.append('skills', skills);
+        data.append('file', selectedFile);
+        data.append('githubusername', githubusername);
+        data.append('bio', bio);
+        data.append('twitter', twitter);
+        data.append('facebook', facebook);
+        data.append('linkedin', linkedin);
+        data.append('youtube', youtube);
+        data.append('instagram', instagram);
 
+
+        createProfile(data, history)
+    // console.log(formData);
     }
   return (
     <Fragment>
@@ -116,6 +145,17 @@ const CreateProfile = ({ createProfile, history }) => {
           />
           <small className="form-text">
             Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
+          </small>
+        </div>
+        <div className="form-group">
+          <input
+            type="file"
+            name="file"
+            
+            onChange={e => onChangeFile(e)}
+          />
+          <small className="form-text">
+            Please select Jpg or Png file
           </small>
         </div>
         <div className="form-group">

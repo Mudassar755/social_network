@@ -69,6 +69,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             placeholder="Password"
             name="password"
             minLength="6"
+            required
             value={password}
             onChange={e => onChange(e)}
           />
