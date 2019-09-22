@@ -42,14 +42,11 @@ const CreateProfile = ({ createProfile, history }) => {
   const onChange = e =>{
 
     setFormData({ ...formData, [e.target.name]: e.target.value});
-    console.log(formData)
     
   }
   const onChangeFile = e =>{
 
     setFormData({...formData, selectedFile: e.target.files[0]});
-    console.log(e.target.files[0])
-    console.log(formData)
   }
     
 
@@ -72,7 +69,6 @@ const CreateProfile = ({ createProfile, history }) => {
 
 
         createProfile(data, history)
-    // console.log(formData);
     }
   return (
     <Fragment>

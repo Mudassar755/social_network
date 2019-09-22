@@ -66,12 +66,10 @@ const EditProfile = ({
 
   const onChange = e =>{
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
   };
   const onChangeFile = e => {
   
     setFormData({ ...formData, selectedFile: e.target.files });
-    console.log(formData);
   };
   const onSubmit = e => {
     e.preventDefault();

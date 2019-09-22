@@ -85,8 +85,6 @@ router.post(
     } = req.body;
 
     const file = req.file;
-    console.log(file.originalname);
-    // const file = profileImg.originalname;
 
     //Build Profile Object
     const profileFields = {};
@@ -102,7 +100,6 @@ router.post(
       profileFields.skills = skills.split(",").map(skill => skill.trim());
     }
     
-    // console.log(profileFields.file);
 
     //Build social object
     profileFields.social = {};
@@ -252,7 +249,6 @@ router.put(
 
       res.json(profile);
     } catch (err) {
-      console.log(err.message);
       res.status(500).send("Server Error********");
     }
   }
@@ -336,7 +332,6 @@ router.put(
 
       res.json(profile);
     } catch (err) {
-      console.log(err.message);
       res.status(500).send("Server Error********");
     }
   }

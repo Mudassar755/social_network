@@ -67,7 +67,7 @@ img {
 }
 
 .text-primary {
-  color: var(--primary-color);
+  color: var(--primary-color) !important;
 }
 
 .text-dark {
@@ -141,11 +141,13 @@ img {
 
 .badge {
   font-size: 0.8rem;
-  padding: 0.1rem;
+  padding: 0.1rem !important;
   text-align: center;
   margin: 0.3rem;
   background: var(--light-color);
   color: #333;
+  display: block;
+  border-radius: 0px !important;
 }
 
 .alert {
@@ -160,7 +162,7 @@ img {
 .bg-primary,
 .badge-primary,
 .alert-primary {
-  background: var(--primary-color);
+  background: var(--primary-color) !important;
   color: #fff;
 }
 
@@ -168,7 +170,7 @@ img {
 .bg-light,
 .badge-light,
 .alert-light {
-  background: var(--light-color);
+  background: var(--light-color) !important;
   color: #333;
 }
 
@@ -321,6 +323,7 @@ button {
   color: #fff;
   padding: 0.45rem;
   margin: 0 0.25rem;
+  text-decoration: none;
 }
 
 .navbar a:hover {
