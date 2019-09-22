@@ -21,8 +21,11 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const onSubmit = e => {
     e.preventDefault();
 
-    if (password !== password2) {
-      setAlert("Password is no match", "danger");
+    if(password.trim() === ''){
+      setAlert("Please enter a valid password", "danger");
+    }
+    else if (password !== password2) {
+      setAlert("Password is not match", "danger");
     } else {
       setAlert("Registered Successfully !", "success");
       register({ name, email, password });
@@ -69,7 +72,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             placeholder="Password"
             name="password"
             minLength="6"
-            required
+            // required
             value={password}
             onChange={e => onChange(e)}
           />

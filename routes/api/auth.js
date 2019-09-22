@@ -28,7 +28,7 @@ router.get("/", auth, async (req, res) => {
 //@access  Public
 router.post("/",
   [
-    check("email", "please include a valid email **** ").isEmail(),
+    check("email", "please include a valid email ").isEmail(),
     check("password", "password is required").exists()
   ],
   async (req, res) => {
@@ -54,7 +54,7 @@ router.post("/",
       if (!isMatch) {
         return res
           .status(400)
-          .json({ errors: [{ msg: "email or password is incorrect" }] });
+          .json({ errors: [{ msg: "Email or Password is incorrect" }] });
       }
 
       const payload = {
