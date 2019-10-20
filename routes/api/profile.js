@@ -12,14 +12,14 @@ const Post = require("../../models/Post");
 const router = express.Router();
 
 //@route   GET api/profile/me
-//@desc    Get cirrent user`s profile
+//@desc    Get current user`s profile
 //@access  Private
 
 router.get("/me", auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id }).populate(
       "user",
-      ["name", "avatar"]
+      ["name"]
     );
 
     if (!profile) {
@@ -111,7 +111,7 @@ router.post(
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });
-
+     
       if (profile) {
         //Update
         profile = await Profile.findOneAndUpdate(

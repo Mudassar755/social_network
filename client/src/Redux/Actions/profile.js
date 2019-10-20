@@ -79,7 +79,7 @@ export const getGithubRepos = username => async dispatch => {
   }
 };
 
-//Create or Update Profiel
+//Create or Update Profile
 
 export const createProfile = (
   formData,

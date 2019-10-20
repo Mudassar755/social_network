@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createProfile } from '../../Redux/Actions/profile';
-import { Link, withRouter } from 'react-router-dom'
+import { createProfile } from "../../Redux/Actions/profile";
+import { Link, withRouter } from "react-router-dom";
 
 const CreateProfile = ({ createProfile, history }) => {
   const [formData, setFormData] = useState({
@@ -39,37 +39,33 @@ const CreateProfile = ({ createProfile, history }) => {
     instagram
   } = formData;
 
-  const onChange = e =>{
+  const onChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const onChangeFile = e => {
+    setFormData({ ...formData, selectedFile: e.target.files[0] });
+  };
 
-    setFormData({ ...formData, [e.target.name]: e.target.value});
-    
-  }
-  const onChangeFile = e =>{
+  const onSubmit = e => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append("company", company);
+    data.append("website", website);
+    data.append("location", location);
+    data.append("status", status);
+    data.append("skills", skills);
+    data.append("file", selectedFile);
+    data.append("githubusername", githubusername);
+    data.append("bio", bio);
+    data.append("twitter", twitter);
+    data.append("facebook", facebook);
+    data.append("linkedin", linkedin);
+    data.append("youtube", youtube);
+    data.append("instagram", instagram);
 
-    setFormData({...formData, selectedFile: e.target.files[0]});
-  }
-    
-
-    const onSubmit = e => {
-        e.preventDefault();
-        const data = new FormData();
-        data.append('company', company);
-        data.append('website', website);
-        data.append('location', location);
-        data.append('status', status);
-        data.append('skills', skills);
-        data.append('file', selectedFile);
-        data.append('githubusername', githubusername);
-        data.append('bio', bio);
-        data.append('twitter', twitter);
-        data.append('facebook', facebook);
-        data.append('linkedin', linkedin);
-        data.append('youtube', youtube);
-        data.append('instagram', instagram);
-
-
-        createProfile(data, history)
-    }
+    console.log(data);
+    createProfile(data, history);
+  };
   return (
     <Fragment>
       <h1 className="large text-primary">Create Your Profile</h1>
@@ -78,7 +74,7 @@ const CreateProfile = ({ createProfile, history }) => {
         profile stand out
       </p>
       <small>* = required field</small>
-      <form className="form" onSubmit = {e => onSubmit(e)}>
+      <form className="form" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
           <select name="status" value={status} onChange={e => onChange(e)}>
             <option value="0">* Select Professional Status</option>
@@ -144,15 +140,8 @@ const CreateProfile = ({ createProfile, history }) => {
           </small>
         </div>
         <div className="form-group">
-          <input
-            type="file"
-            name="file"
-            
-            onChange={e => onChangeFile(e)}
-          />
-          <small className="form-text">
-            Please select Jpg or Png file
-          </small>
+          <input type="file" name="file" onChange={e => onChangeFile(e)} />
+          <small className="form-text">Please select Jpg or Png file</small>
         </div>
         <div className="form-group">
           <input
@@ -247,7 +236,7 @@ const CreateProfile = ({ createProfile, history }) => {
         )}
 
         <input type="submit" className="btn btn-primary my-1" />
-        <Link to="/dashboard" className="btn btn-light my-1" >
+        <Link to="/dashboard" className="btn btn-light my-1">
           Go Back
         </Link>
       </form>
@@ -256,7 +245,10 @@ const CreateProfile = ({ createProfile, history }) => {
 };
 
 CreateProfile.propTypes = {
-    createProfile: PropTypes.func.isRequired,
+  createProfile: PropTypes.func.isRequired
 };
 
-export default connect(null, { createProfile })(withRouter(CreateProfile)) ;
+export default connect(
+  null,
+  { createProfile }
+)(withRouter(CreateProfile));
